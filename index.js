@@ -7,7 +7,7 @@ import cors from "cors"
 const app=express()
 app.use(express.json())
 app.use(cookieParser())
-const origin=["https://frontend-user-authentication-fawn.vercel.app"]
+const origin=`https://frontend-user-authentication-fawn.vercel.app/`
 app.use(cors({origin:origin,credentials:true}));
 app.get("/",(req,res)=>{
     res.send("Hello World");

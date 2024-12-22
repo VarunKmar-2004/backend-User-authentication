@@ -1,0 +1,13 @@
+import express from "express";
+import { isAuthenticated, sendEmailOtp, sendResetOtp, userLogin, userLogout, userRegister, verifyEmailOtp, verifyResetOtp } from "../controllers/authController.js";
+import UserId from "../middlewares/userId.js";
+const authRouter=express.Router();
+authRouter.post("/register",userRegister);
+authRouter.post("/login",userLogin);
+authRouter.post("/logout",userLogout);
+authRouter.post("/send-email-otp",UserId,sendEmailOtp);
+authRouter.post("/verify-email-otp",UserId,verifyEmailOtp);
+authRouter.get('/is-auth',UserId,isAuthenticated);
+authRouter.post("/send-resetotp",sendResetOtp);
+authRouter.post("/verify-resetotp",verifyResetOtp);
+export default authRouter;

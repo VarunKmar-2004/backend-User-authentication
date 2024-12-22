@@ -1,16 +1,16 @@
 import express from "express"
 import mongoose from "mongoose"
+import cors from "cors"
 import authRouter from "./routes/authRoutes.js"
 import cookieParser from "cookie-parser"
 import userRouter from "./routes/UserRoutes.js"
-import cors from "cors"
 const app=express()
 app.use(express.json())
-app.use(cookieParser())
 app.use(cors({
     origin:['https://frontend-user-authentication-fawn.vercel.app','http://localhost:3000'],
     credentials:true
 });
+app.use(cookieParser())
 app.get("/",(req,res)=>{
     res.send("Hello World");
 })

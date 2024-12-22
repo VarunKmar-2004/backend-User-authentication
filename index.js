@@ -6,13 +6,14 @@ import userRouter from "./routes/UserRoutes.js"
 import cors from "cors"
 const app=express()
 app.use(express.json())
+const corsOptions = {
+  origin: 'https://frontend-user-authentication-fawn.vercel.app',
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+};  
+app.use(cors(corsOptions));
 app.use(cookieParser())
-const origin=`https://frontend-user-authentication-fawn.vercel.app`
-app.use(cors({origin:origin,credentials:true}));
-app.options('*', cors({
-  origin: origin,
-  credentials: true
-}));
 app.get("/",(req,res)=>{
     res.send("Hello World");
 })

@@ -16,6 +16,7 @@ app.get("/",(req,res)=>{
 })
 app.use('/api/auth',authRouter);
 app.use('/api/user',userRouter);
+
 const port=process.env.PORT || 4000
 const Mongo_Uri='mongodb+srv://VarunKumar:iEj7K1z34xYINBxB@cluster1.cqnzl.mongodb.net/User_Auth'
 mongoose.connect(Mongo_Uri)

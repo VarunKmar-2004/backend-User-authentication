@@ -28,8 +28,8 @@ export const userRegister = async (req, res) => {
         const token = jwt.sign({ id: user._id },jwt_secret, { expiresIn: "3d" });
         res.cookie("token", token, {
             httpOnly: true,
-            secure: false,
-            sameSite: 'strict',
+            secure: true,
+            sameSite: 'none',
             maxAge: 3 * 24 * 60 * 60 * 1000
         });
         const mailoptions={
@@ -70,8 +70,8 @@ export const userLogin = async (req, res) => {
         const token = jwt.sign({ id: user._id },jwt_secret, { expiresIn: "3d" });
         res.cookie("token", token, {
             httpOnly: true,
-            secure: false,
-            sameSite: 'strict',
+            secure: true,
+            sameSite: 'none',
             maxAge: 3 * 24 * 60 * 60 * 1000
         });
 
@@ -84,8 +84,8 @@ export const userLogout=async(req,res)=>{
     try{
         res.clearCookie('token',{
             httpOnly: true,
-            secure: false,
-            sameSite: 'strict',
+            secure: true,
+            sameSite: 'none',
         });
         return res.status(200).json({success:true,msg:"logged out successfully"});
     }

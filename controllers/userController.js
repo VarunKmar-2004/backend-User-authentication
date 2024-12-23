@@ -2,7 +2,7 @@ import UserModal from "../models/model.js";
 export const getUser=async(req,res)=>{
     const {email}=req.body;
     try{
-    const user=await UserModal.findOne(email);
+    const user=await UserModal.findOne({email});
     if(!user){
         return res.json({success:false,msg:'user not found'});
     }

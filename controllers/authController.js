@@ -4,11 +4,9 @@ import bcrypt from 'bcryptjs';
 import cookie from "cookie-parser";
 import jwt from 'jsonwebtoken';
 import transporter from "../config/nodemailer.js";
-import dotenv from 'dotenv';
-dotenv.config();
 export const userRegister = async (req, res) => {
     const { username, email, password } = req.body;
-    const jwt_secret=process.env.JWT_SECRET
+    const jwt_secret=process.env.JWT_SECRET || "VarunTheDevelopper"
     // Validate input
     if (!username || !email || !password) {
         return res.status(400).json({ success: false, msg: "All fields should be filled" });
@@ -35,10 +33,10 @@ export const userRegister = async (req, res) => {
             maxAge: 3 * 24 * 60 * 60 * 1000
         });
         const mailoptions={
-            from:process.env.sender_Email,
+            from:process.env.sender_Email || "ninjandns@gmail.com",
             to:email,
             subject:"Welcome to User Authentication",
-            text:`you are successfully registered into hackers world.You are getting this message from email ${process.env.sender_Email}`
+            text:`you are successfully registered into hackers world.You are getting this message from email ${process.env.sender_Email || "ninjandns@gmail.com"}`
         }
         await transporter.sendMail(mailoptions);
         return res.status(201).json({ success: true, msg: "User registered successfully" });
@@ -67,7 +65,7 @@ export const userLogin = async (req, res) => {
         if (!isMatch) {
             return res.status(400).json({ success: false, msg: "Password mismatch" });
         }
-         const jwt_secret=process.env.JWT_SECRET 
+         const jwt_secret=process.env.JWT_SECRET || "VarunTheDevelopper"
         // Generate JWT token
         const token = jwt.sign({ id: user._id },jwt_secret, { expiresIn: "3d" });
         res.cookie("token", token, {
@@ -107,7 +105,7 @@ export const sendEmailOtp=async(req,res)=>{
      user.verifyOtpExpiry=Date.now()+24*60*60*1000;
      await user.save();
      const mailotp={
-        from:process.env.sender_Email,
+        from:process.env.sender_Email || "ninjandns@gmail.com",
         to:user.email,
         subject:"Verification of Email",
         text:`Your otp to verify your email is:${otp}`
@@ -160,7 +158,7 @@ export const sendResetOtp=async(req,res)=>{
         user.resetOtpExpiry=Date.now()+24*60*60*1000;
         await user.save();
         const mail={
-            from:process.env.sender_Email,
+            from:process.env.sender_Email || "ninjandns@gmail.com",
             to:user.email,
             subject:"Password Reset Otp",
             text:`Your Password reset otp is :${otp}`
